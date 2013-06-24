@@ -9,13 +9,17 @@ logger -p user.notice -t "slugc[$$]" "language_pack_java java_compile_start"
 BIN_DIR=$(cd $(dirname $0); pwd) # absolute path
 # parse args
 BUILD_DIR=$1
+echo "BUILD_DIR"
+echo $1
 CACHE_DIR=$2
+echo "CACHE_DIR"
+echo $2
 LOGGER_FLAGS=""
 
 curl --silent --location http://heroku-jvm-common.s3.amazonaws.com/jvm-buildpack-common.tar.gz | tar xz
 . bin/java
 
-KEEP_M2_CACHE="true"
+KEEP_M2_CACHE="false"
 
 # create default system.properties for apps that had the jdk vendored in 
 if [ -f ${CACHE_DIR}/.jdk/vendor ] && [ ! -f ${BUILD_DIR}/system.properties ]; then
